@@ -79,6 +79,7 @@ const (
 	Decorated           = Hint(0x00020005)
 	Focused             = Hint(0x00020001)
 	Resizable           = Hint(0x00020003)
+	StencilBits         = Hint(0x00021006)
 	Visible             = Hint(0x00020004)
 )
 

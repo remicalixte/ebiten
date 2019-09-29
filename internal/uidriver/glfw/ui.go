@@ -590,6 +590,9 @@ func (u *UserInterface) run(width, height int, scale float64, title string, cont
 		if u.graphics.IsGL() {
 			glfw.WindowHint(glfw.ContextVersionMajor, 2)
 			glfw.WindowHint(glfw.ContextVersionMinor, 1)
+			// Set stencil bits 0 to suppress errors on macOS.
+			// https://stackoverflow.com/questions/27365099/nsgl-failed-to-create-opengl-pixel-format
+			glfw.WindowHint(glfw.StencilBits, 8)
 		} else {
 			glfw.WindowHint(glfw.ClientAPI, glfw.NoAPI)
 		}

@@ -1,0 +1,46 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        go: ['1.12', '1.13']
+    name: Test with Go ${{ matrix.go }} on Linux
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get install libasound2-dev libgl1-mesa-dev libalut-dev libxcursor-dev libxi-dev libxinerama-dev libxrandr-dev libxxf86vm-dev
+
+      - name: Run tests
+        run: |
+          export DISPLAY=:99.0
+          Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
+          go test -tags=example -v github.com/hajimehoshi/ebiten/...
+
+  windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        go: ['1.12', '1.13']
+    name: Test with Go ${{ matrix.go }} on macOS
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Setup Go
+        uses: actions/setup-go@v1
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: Run tests
+        run: |
+          go test -tags=example -v github.com/hajimehoshi/ebiten/...
