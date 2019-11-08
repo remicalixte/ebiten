@@ -607,6 +607,7 @@ func (u *UserInterface) run(width, height int, scale float64, title string, cont
 		}
 		glfw.WindowHint(glfw.Resizable, resizable)
 
+		glfw.WindowHint(glfw.Visible, glfw.True)
 		// As a start, create a window with temporary size to create OpenGL context thread.
 		window, err := glfw.CreateWindow(16, 16, "", nil, nil)
 		if err != nil {
